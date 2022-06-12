@@ -23,7 +23,7 @@ export default e => {
     const npcName = app.getComponent('name') ?? 'Anon';
     const npcVoiceName = app.getComponent('voice') ?? 'Shining armor';
     const npcBio = app.getComponent('bio') ?? 'A generic avatar.';
-    const npcAvatarUrl = app.getComponent('avatarUrl') ?? `./kuda.vrm`;
+    const npcAvatarUrl = app.getComponent('avatarUrl') ?? `https://0xkitsu.github.io/kuda-npc/kuda.vrm`;
     let npcWear = app.getComponent('wear') ?? [];
     if (!Array.isArray(npcWear)) {
       npcWear = [npcWear];
