@@ -200,13 +200,14 @@ export default e => {
         const timeDiff = timestamp - lastTimestamp;
         if (timeDiff > waitTime) {
         
-          waitTime = (0.5 + 0.5 * Math.random()) * 30000;
+          waitTime = (0.5 + 0.5 * Math.random()) * 3000;
           lastTimestamp = timestamp;
           npcPlayer.removeAction('dance');
     
-          const newAction = {
-            type: 'dance',
-            animation: 'dansu',
+          const newAction =  {
+            type: 'jump',
+            trigger:'jump'
+            // time: 0,
           };
           npcPlayer.addAction(newAction);
         }
