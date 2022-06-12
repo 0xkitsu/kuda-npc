@@ -171,6 +171,9 @@ export default e => {
     const walkSpeed = 0.075 * slowdownFactor;
     const runSpeed = walkSpeed * 8;
     const speedDistanceRate = 0.07;
+    const waitTime = 0;
+    const lastTimestamp = 0;
+    
     useFrame(({timestamp, timeDiff}) => {
       if (npcPlayer && physics.getPhysicsEnabled()) {
         if (targetSpec) {
@@ -191,6 +194,25 @@ export default e => {
 
         npcPlayer.eyeballTarget.copy(localPlayer.position);
         npcPlayer.eyeballTargetEnabled = true;
+
+
+        
+        const timeDiff = timestamp - lastTimestamp;
+        if (timeDiff > waitTime) {
+        
+          waitTime = (0.5 + 0.5 * Math.random()) * 30000;
+          lastTimestamp = timestamp;
+          npcPlayer.removeAction('dance');
+    
+          const newAction = {
+            type: 'dance',
+            animation: 'dansu',
+          };
+          npcPlayer.addAction(newAction);
+        }
+
+
+
 
         npcPlayer.updatePhysics(timestamp, timeDiff);
         npcPlayer.updateAvatar(timestamp, timeDiff);
