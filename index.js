@@ -202,12 +202,11 @@ export default e => {
         
           waitTime = (0.5 + 0.5 * Math.random()) * 3000;
           lastTimestamp = timestamp;
-          npcPlayer.removeAction('dance');
+          npcPlayer.removeAction('hurt');
     
           const newAction =  {
-            type: 'jump',
-            trigger:'jump'
-            // time: 0,
+            type: 'hurt',
+            animation: 'pain_back',
           };
           npcPlayer.addAction(newAction);
         }
