@@ -23,7 +23,7 @@ export default e => {
     const npcName = app.getComponent('name') ?? 'Anon';
     const npcVoiceName = app.getComponent('voice') ?? 'Shining armor';
     const npcBio = app.getComponent('bio') ?? 'A generic avatar.';
-    const npcAvatarUrl = app.getComponent('avatarUrl') ?? `/avatars/Drake_hacker_v6_Guilty.vrm`;
+    const npcAvatarUrl = app.getComponent('avatarUrl') ?? `./kuda.vrm`;
     let npcWear = app.getComponent('wear') ?? [];
     if (!Array.isArray(npcWear)) {
       npcWear = [npcWear];
