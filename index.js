@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import metaversefile from 'metaversefile';
 const {useApp, useFrame, useActivate, useLocalPlayer, useVoices, useChatManager, useLoreAI, useLoreAIScene, useAvatarAnimations, useNpcManager, useScene, usePhysics, useCleanup} = metaversefile;
 
+import {emoteAnimations} from '../../../../avatars/animationHelpers.js';
+
 const localVector = new THREE.Vector3();
 
 export default e => {
@@ -212,7 +214,7 @@ export default e => {
           }
 
 
-          emoteName = 'victory'
+          triggerEmote('joy')
           const newAction =  {
             type: 'emote',
             animation: emoteName,
@@ -227,6 +229,9 @@ export default e => {
         npcPlayer.updateAvatar(timestamp, timeDiff);
       }
     });
+
+
+
 
     useCleanup(() => {
       live = false;
