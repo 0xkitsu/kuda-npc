@@ -109,6 +109,20 @@ export default e => {
           npcPlayer.removeAction('hurt');
         }, hurtAnimationDuration * 1000);
       }
+    });    
+    
+    app.addEventListener('click', e => {
+      if (!npcPlayer.hasAction('hurt')) {
+        const newAction = {
+          type: 'hurt',
+          animation: 'pain_back',
+        };
+        npcPlayer.addAction(newAction);
+        
+        setTimeout(() => {
+          npcPlayer.removeAction('hurt');
+        }, hurtAnimationDuration * 1000);
+      }
     });
 
     let targetSpec = null;
@@ -194,7 +208,7 @@ export default e => {
 
         npcPlayer.eyeballTarget.copy(localPlayer.position);
         npcPlayer.eyeballTargetEnabled = true;
-        alert(1);
+
         npcPlayer.updatePhysics(timestamp, timeDiff);
         npcPlayer.updateAvatar(timestamp, timeDiff);
       }
