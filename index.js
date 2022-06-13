@@ -173,8 +173,6 @@ export default e => {
     const walkSpeed = 0.075 * slowdownFactor;
     const runSpeed = walkSpeed * 8;
     const speedDistanceRate = 0.07;
-    const waitTime = 0;
-    const lastTimestamp = 0;
 
     useFrame(({timestamp, timeDiff}) => {
       if (npcPlayer && physics.getPhysicsEnabled()) {
@@ -196,61 +194,13 @@ export default e => {
 
         npcPlayer.eyeballTarget.copy(localPlayer.position);
         npcPlayer.eyeballTargetEnabled = true;
-
-
-        
-        const timeDiff = timestamp - lastTimestamp;
-        if (timeDiff > waitTime) {
-        
-          waitTime = (0.5 + 0.5 * Math.random()) * 3000;
-          lastTimestamp = timestamp;
-          console.log("trying to trigger emote...")
-          triggerEmote('joy')
-        }
-
-
-
-
+        alert(1);
         npcPlayer.updatePhysics(timestamp, timeDiff);
         npcPlayer.updateAvatar(timestamp, timeDiff);
       }
     });
 
 
-    let emoteTimeout = null;
-    export const triggerEmote = emoteName => {
-      const emoteHardName = emoteName.replace(/Soft$/, '');
-      const emote = emotes.find(emote => emote.name === emoteHardName);
-      const {emotion} = emote;
-      
-      // clear old emote
-      npcPlayer.removeAction('emote');
-      // if (emoteTimeout) {
-      //   clearTimeout(emoteTimeout);
-      //   emoteTimeout = null;
-      // }
-    
-      // add new emote
-      const newAction = {
-        type: 'emote',
-        animation: 'victory',
-      };
-      clear.addAction(newAction);
-    
-      setFacePoseValue(emotion, 1);
-    
-      // const emoteAnimation = emoteAnimations[emoteName];
-      // const emoteAnimationDuration = emoteAnimation.duration;
-      // emoteTimeout = setTimeout(() => {
-      //   const actionIndex = clear.findActionIndex(action => action.type === 'emote' && action.animation === emoteName);
-      //   clear.removeActionIndex(actionIndex);
-    
-      //   setFacePoseValue(emotion, 0);
-        
-      //   emoteTimeout = null;
-      // }, emoteAnimationDuration * 1000);
-    };
-    
 
     useCleanup(() => {
       live = false;
