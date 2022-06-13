@@ -214,10 +214,10 @@ export default e => {
           }
 
 
-          triggerEmote('joy')
+        
           const newAction =  {
             type: 'emote',
-            animation: emoteName,
+            animation: 'joy',
           };
           npcPlayer.addAction(newAction);
         }
