@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import metaversefile from 'metaversefile';
 const {useApp, useFrame, useActivate, useLocalPlayer, useVoices, useChatManager, useLoreAI, useLoreAIScene, useAvatarAnimations, useNpcManager, useScene, usePhysics, useCleanup} = metaversefile;
 
-import {emoteAnimations} from '../../../../avatars/animationHelpers.js';
+import emotes from './emotes.json';
 
 const localVector = new THREE.Vector3();
 
@@ -176,7 +176,6 @@ export default e => {
     const waitTime = 0;
     const lastTimestamp = 0;
 
-    let emoteTimeout = null;
     useFrame(({timestamp, timeDiff}) => {
       if (npcPlayer && physics.getPhysicsEnabled()) {
         if (targetSpec) {
@@ -205,21 +204,8 @@ export default e => {
         
           waitTime = (0.5 + 0.5 * Math.random()) * 3000;
           lastTimestamp = timestamp;
-          
-          
-          npcPlayer.removeAction('emote');
-          if (emoteTimeout) {
-            clearTimeout(emoteTimeout);
-            emoteTimeout = s;
-          }
-
-
-        
-          const newAction =  {
-            type: 'emote',
-            animation: 'joy',
-          };
-          npcPlayer.addAction(newAction);
+          console.log("trying to trigger emote...")
+          triggerEmote('joy')
         }
 
 
@@ -231,7 +217,40 @@ export default e => {
     });
 
 
-
+    let emoteTimeout = null;
+    export const triggerEmote = emoteName => {
+      const emoteHardName = emoteName.replace(/Soft$/, '');
+      const emote = emotes.find(emote => emote.name === emoteHardName);
+      const {emotion} = emote;
+      
+      // clear old emote
+      npcPlayer.removeAction('emote');
+      // if (emoteTimeout) {
+      //   clearTimeout(emoteTimeout);
+      //   emoteTimeout = null;
+      // }
+    
+      // add new emote
+      const newAction = {
+        type: 'emote',
+        animation: 'victory',
+      };
+      clear.addAction(newAction);
+    
+      setFacePoseValue(emotion, 1);
+    
+      // const emoteAnimation = emoteAnimations[emoteName];
+      // const emoteAnimationDuration = emoteAnimation.duration;
+      // emoteTimeout = setTimeout(() => {
+      //   const actionIndex = clear.findActionIndex(action => action.type === 'emote' && action.animation === emoteName);
+      //   clear.removeActionIndex(actionIndex);
+    
+      //   setFacePoseValue(emotion, 0);
+        
+      //   emoteTimeout = null;
+      // }, emoteAnimationDuration * 1000);
+    };
+    
 
     useCleanup(() => {
       live = false;
