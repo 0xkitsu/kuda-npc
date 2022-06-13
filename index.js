@@ -173,7 +173,8 @@ export default e => {
     const speedDistanceRate = 0.07;
     const waitTime = 0;
     const lastTimestamp = 0;
-    
+
+    let emoteTimeout = null;
     useFrame(({timestamp, timeDiff}) => {
       if (npcPlayer && physics.getPhysicsEnabled()) {
         if (targetSpec) {
@@ -202,11 +203,19 @@ export default e => {
         
           waitTime = (0.5 + 0.5 * Math.random()) * 3000;
           lastTimestamp = timestamp;
-          npcPlayer.removeAction('hurt');
-    
+          
+          
+          npcPlayer.removeAction('emote');
+          if (emoteTimeout) {
+            clearTimeout(emoteTimeout);
+            emoteTimeout = s;
+          }
+
+
+          emoteName = 'victory'
           const newAction =  {
-            type: 'hurt',
-            animation: 'pain_back',
+            type: 'emote',
+            animation: emoteName,
           };
           npcPlayer.addAction(newAction);
         }
